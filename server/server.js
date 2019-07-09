@@ -1,8 +1,10 @@
 require('./config/config')
 
 const express = require('express')
-const app = express()
 const mongoose = require('mongoose')
+const path = require('path')
+
+const app = express()
 
 const bodyParser = require('body-parser')
 
@@ -14,6 +16,9 @@ app.use(bodyParser.json())
 
 // Configuracion global de routes
 app.use(require('../server/routes/index'))
+
+// Habilitar carpeta public
+app.use(express.static(path.resolve(__dirname, '../public')))
 
 mongoose.connect(process.env.URLDB, { useNewUrlParser: true }, (err) => {
   if (err) throw err
